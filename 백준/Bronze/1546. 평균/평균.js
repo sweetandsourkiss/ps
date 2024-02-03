@@ -8,7 +8,7 @@ const max = numbers.reduce((prev, cur) => {
   if (prev < cur) return cur;
   else return prev;
 }, 0);
-numbers = numbers.map((v) => (v / max) * 100);
-const answer = numbers.reduce((prev, cur) => prev + cur, 0) / numbers.length;
+const answer =
+  numbers.reduce((prev, cur) => prev + (cur / max) * 100, 0) / numbers.length;
 
 console.log(answer);
