@@ -14,18 +14,22 @@ for (let i = 2; i <= Math.floor(Math.sqrt(to)); i++) {
   }
 }
 
-let answer = "";
-
 positiveIntegers[0] = false;
 positiveIntegers[1] = false;
+
 for (let index = 2; index < from; index++) {
   positiveIntegers[index] = false;
 }
 
+// let answer = "";
+const primes = [];
+
 for (let index = from; index <= to; index++) {
   if (positiveIntegers[index]) {
-    answer += `${index}\n`;
+    primes.push(index);
+    // answer += `${index}\n`;
   }
 }
 
-console.log(answer);
+console.log(primes.join("\n"));
+// console.log(answer);
