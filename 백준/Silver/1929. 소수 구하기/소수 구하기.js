@@ -6,7 +6,7 @@ let input = fs.readFileSync(filePath).toString().split("\n");
 const [from, to] = input[0].split(" ").map((v) => parseInt(v));
 const positiveIntegers = Array.from({ length: to + 1 }, () => true);
 
-for (let i = 2; i * 2 <= to; i++) {
+for (let i = 2; i <= Math.floor(Math.sqrt(to)); i++) {
   if (positiveIntegers[i]) {
     for (let j = i * 2; j <= to; j += i) {
       positiveIntegers[j] = false;
