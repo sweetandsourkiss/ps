@@ -18,13 +18,14 @@ let answer = "";
 
 positiveIntegers[0] = false;
 positiveIntegers[1] = false;
-for (let i = 2; i < from; i++) {
-  positiveIntegers[i] = false;
+for (let index = 2; index < from; index++) {
+  positiveIntegers[index] = false;
 }
-positiveIntegers.forEach((value, index) => {
-  if (value) {
+
+for (let index = from; index <= to; index++) {
+  if (positiveIntegers[index]) {
     answer += `${index}\n`;
   }
-});
+}
 
 console.log(answer);
