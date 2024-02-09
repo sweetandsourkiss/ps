@@ -4,7 +4,7 @@ let input = fs.readFileSync(filePath).toString().split("\n");
 
 // your own code here
 const caseNumber = parseInt(input[0]);
-
+let answer = "";
 for (let caseIndex = 0; caseIndex < caseNumber; caseIndex++) {
   const priorityMap = new Map();
   const [docuNumber, targetIndex] = input[caseIndex * 2 + 1]
@@ -45,5 +45,6 @@ for (let caseIndex = 0; caseIndex < caseNumber; caseIndex++) {
         [([nowPriority, nowPriorityCount] = findPriorityInfo(nowPriority - 1))];
     }
   }
-  console.log(printCount);
+  answer += `${printCount} \n`;
 }
+console.log(answer);
