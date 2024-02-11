@@ -24,6 +24,7 @@ let middleValue = -4001,
   integerCount = 0,
   minValue = Number.NEGATIVE_INFINITY,
   maxValue = Number.POSITIVE_INFINITY;
+
 arrayFromN4000ToP4000.forEach((_numberOfInteger, _indexOfInteger) => {
   if (_numberOfInteger > 0) {
     integerCount += _numberOfInteger;
@@ -31,6 +32,7 @@ arrayFromN4000ToP4000.forEach((_numberOfInteger, _indexOfInteger) => {
     if (middleValue === -4001 && integerCount >= (numberOfInteger + 1) / 2) {
       middleValue = _indexOfInteger - 4000;
     }
+
     if (_numberOfInteger > modeCount) {
       modeCount = _numberOfInteger;
       modeValue = _indexOfInteger - 4000;
@@ -49,7 +51,9 @@ arrayFromN4000ToP4000.forEach((_numberOfInteger, _indexOfInteger) => {
 
 let average = Math.round(sumOfIntegers / numberOfInteger);
 average = average === -0 ? 0 : average;
-console.log(average);
-console.log(middleValue);
-console.log(modeValue);
-console.log(maxValue - minValue);
+
+const answer = `${average}\n${middleValue}\n${modeValue}\n${
+  maxValue - minValue
+}`;
+
+console.log(answer);
