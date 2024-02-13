@@ -7,7 +7,11 @@ const targetNumber = parseInt(input[0]);
 
 let answer = 0;
 
-for (let number = 1; number <= targetNumber; number++) {
+for (
+  let number = targetNumber - 54 <= 0 ? 0 : targetNumber - 54;
+  number <= targetNumber;
+  number++
+) {
   let _partialSum = number;
   for (
     let remainder = number;
