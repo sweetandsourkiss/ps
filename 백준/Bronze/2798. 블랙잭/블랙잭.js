@@ -29,8 +29,8 @@ for (
       }
       const tmpSum =
         cards[firstCardIndex] + cards[secondCardIndex] + cards[thirdCardIndex];
-      if (tmpSum <= jackNumber) {
-        answer = Math.max(answer, tmpSum);
+      if (tmpSum <= jackNumber && tmpSum > answer) {
+        answer = tmpSum;
       }
     }
   }
