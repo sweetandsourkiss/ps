@@ -7,9 +7,6 @@ const [upHeight, downHeight, stickHeight] = input[0]
   .split(" ")
   .map((v) => parseInt(v));
 const dailyHeight = upHeight - downHeight;
-
-let nowHeight = 0;
-
 const targetHeight = stickHeight - upHeight;
 
 if (targetHeight % dailyHeight === 0) {
