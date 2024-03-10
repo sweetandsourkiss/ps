@@ -25,24 +25,20 @@ for (
   targetHeight++
 ) {
   // 블록 개수가 가능한지 확인
-  let _needed_block = 0;
+  let _needed_block_remove = 0;
+  let _needed_block_add = 0;
   for (let row = 0; row < ROW; row++) {
     for (let col = 0; col < COLUMN; col++) {
-      _needed_block += targetHeight - land[row][col];
+      const _add_or_remove_block = land[row][col] - targetHeight;
+      if (_add_or_remove_block > 0)
+        _needed_block_remove += _add_or_remove_block;
+      else if (_add_or_remove_block < 0)
+        _needed_block_add += -_add_or_remove_block;
     }
   }
-  if (_needed_block > now_block) continue;
+  if (_needed_block_add - _needed_block_remove > now_block) continue;
   // 시간 측정
-  let _needed_time = 0;
-  for (let row = 0; row < ROW; row++) {
-    for (let col = 0; col < COLUMN; col++) {
-      const add_or_remove_block = land[row][col] - targetHeight;
-      _needed_time +=
-        add_or_remove_block > 0
-          ? add_or_remove_block * 2
-          : -add_or_remove_block;
-    }
-  }
+  const _needed_time = _needed_block_remove * 2 + _needed_block_add;
   // 현재 값보다 작거나 같으면 높이와 시간을 초기화
   if (_needed_time <= answer_time) {
     answer_time = _needed_time;
