@@ -5,9 +5,13 @@ const input = fs.readFileSync(filePath).toString().split("\n");
 // your own code here
 const [tree_number, goal] = input[0].split(" ").map(Number);
 const trees = input[1].split(" ").map(Number);
+let max = Number.NEGATIVE_INFINITY;
+for (const tree of trees) {
+  max = Math.max(max, tree);
+}
 
 let left = 0,
-  right = 1000000000;
+  right = max;
 let answer = -1;
 while (left <= right) {
   const mid = Math.floor((left + right) / 2);
