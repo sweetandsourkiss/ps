@@ -15,28 +15,36 @@ for (let test_index = 0; test_index < test_number; test_index++) {
     .map(Number);
   let isFront = true;
   let flag = true;
+  let frontIndex = 0;
+  let backIndex = integers.length - 1;
   for (const command of commands.split("")) {
     if (command === "R") {
       isFront = !isFront;
     } else {
-      if (integers.length === 0) {
+      if (frontIndex > backIndex) {
         answer += "error\n";
         flag = false;
         break;
       }
       if (isFront) {
-        integers.shift();
+        frontIndex++;
       } else {
-        integers.pop();
+        backIndex--;
       }
     }
   }
   if (flag) {
+    let _concat = [];
     if (isFront) {
-      answer += "[" + integers + "]" + "\n";
+      for (let i = frontIndex; i <= backIndex; i++) {
+        _concat.push(integers[i]);
+      }
     } else {
-      answer += "[" + integers.reverse() + "]" + "\n";
+      for (let i = backIndex; i >= frontIndex; i--) {
+        _concat.push(integers[i]);
+      }
     }
+    answer += "[" + _concat + "]" + "\n";
   }
 }
 
