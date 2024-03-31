@@ -10,12 +10,21 @@ for (let i = 0; i < repeat; i++) {
   goal += "OI";
 }
 let count = 0;
-for (let i = 0; i <= target_number - (repeat * 2 + 1); i++) {
-  if (target[i] === "I") {
-    const sub_string = target.substring(i, i + (repeat * 2 + 1));
-    if (goal === sub_string) {
+let target_index = 0;
+let goal_index = 0;
+while (target_index < target_number) {
+  if (target[target_index] === goal[goal_index]) {
+    target_index++;
+    goal_index++;
+    if (goal_index === goal.length) {
       count++;
+      goal_index -= 2;
     }
+  } else {
+    if (goal_index === 0) {
+      target_index++;
+    }
+    goal_index = 0;
   }
 }
 console.log(count);
