@@ -22,10 +22,19 @@ for (let test = 0; test < test_number; test++) {
   }
   const LCM = GCD * (M / GCD) * (N / GCD);
   let test_answer = -1;
-  for (let year = M_goal - 1; year < LCM; year += M) {
-    if ((year % N) + 1 === N_goal) {
-      test_answer = year + 1;
-      break;
+  if (M >= N) {
+    for (let year = M_goal - 1; year < LCM; year += M) {
+      if ((year % N) + 1 === N_goal) {
+        test_answer = year + 1;
+        break;
+      }
+    }
+  } else {
+    for (let year = N_goal - 1; year < LCM; year += N) {
+      if ((year % M) + 1 === M_goal) {
+        test_answer = year + 1;
+        break;
+      }
     }
   }
   answer += test_answer + "\n";
