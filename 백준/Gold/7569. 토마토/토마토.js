@@ -7,12 +7,10 @@ const tomato = Array.from({ length: height }, () =>
   Array.from({ length: row }, () => Array(col))
 );
 
+let idx = 1;
 for (let h = 0; h < height; h++) {
   for (let r = 0; r < row; r++) {
-    const row_tomato = input[1 + h * row + r].split(" ").map(Number);
-    for (let c = 0; c < col; c++) {
-      tomato[h][r][c] = row_tomato[c];
-    }
+    tomato[h][r] = input[idx++].split(" ").map(Number);
   }
 }
 const delta_row = [-1, 1, 0, 0, 0, 0];
