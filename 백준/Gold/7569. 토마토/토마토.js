@@ -22,16 +22,12 @@ const delta_height = [0, 0, 0, 0, -1, 1];
 let day = 0;
 const rippen_tomatoes = [];
 let unrippen_tomatoes_count = 0;
-const visited = Array.from({ length: height }, () =>
-  Array.from({ length: row }, () => Array(col).fill(false))
-);
 
 for (let h = 0; h < height; h++) {
   for (let r = 0; r < row; r++) {
     for (let c = 0; c < col; c++) {
       if (tomato[h][r][c] === 1) {
         rippen_tomatoes.push([[h, r, c], 0]);
-        visited[h][r][c] = true;
       } else if (tomato[h][r][c] === 0) {
         unrippen_tomatoes_count++;
       }
@@ -60,9 +56,8 @@ if (unrippen_tomatoes_count > 0) {
       ) {
         continue;
       }
-      if (tomato[new_h][new_r][new_c] === 0 && !visited[new_h][new_r][new_c]) {
+      if (tomato[new_h][new_r][new_c] === 0) {
         unrippen_tomatoes_count--;
-        visited[new_h][new_r][new_c] = true;
         tomato[new_h][new_r][new_c] = 1;
         rippen_tomatoes.push([[new_h, new_r, new_c], now_day + 1]);
       }
