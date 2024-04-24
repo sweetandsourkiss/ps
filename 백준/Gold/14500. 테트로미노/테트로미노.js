@@ -4,8 +4,8 @@ const input = fs.readFileSync(file_path).toString().split("\n");
 // your own code here
 const [row, col] = input[0].split(" ").map(Number);
 const table = Array.from({ length: row }, () => Array(col));
-const delta_row = [0, 1, 0, -1];
-const delta_col = [1, 0, -1, 0];
+const delta_row = [0, 1, 0];
+const delta_col = [1, 0, -1];
 let input_index = 1;
 
 for (let r = 0; r < row; r++) {
@@ -19,7 +19,7 @@ const dfs = (now_row, now_col, depth, sum) => {
   if (depth === 4) {
     answer = Math.max(answer, sum);
   } else {
-    for (let d = 0; d < 4; d++) {
+    for (let d = 0; d < 3; d++) {
       const new_row = now_row + delta_row[d];
       const new_col = now_col + delta_col[d];
       if (
