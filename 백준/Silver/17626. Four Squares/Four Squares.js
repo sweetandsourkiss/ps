@@ -4,7 +4,7 @@ const input = fs.readFileSync(file_path).toString().split("\n");
 // your own code here
 const target = +input[0];
 
-let answer = 5;
+let answer = 4;
 
 const wear_root = (number) => {
   return Math.floor(Math.sqrt(number));
@@ -16,7 +16,7 @@ const dfs = (now, depth) => {
     return;
   }
 
-  if (depth >= answer - 1 || depth >= 4) {
+  if (depth >= answer - 1 || depth >= 3) {
     return;
   }
 
