@@ -9,42 +9,48 @@ const input = fs.readFileSync(filePath).toString().split("\n");
  */
 
 const [N, E] = input[0].split(" ").map(Number);
-const adjList = Array.from({ length: N + 1 }, () => []);
+const graph = Array.from({ length: N + 1 }, () => Array(N + 1).fill(Infinity));
 
 for (let index = 1; index <= E; index++) {
   const [a, b, dist] = input[index].split(" ").map(Number);
-  adjList[a].push([b, dist]);
-  adjList[b].push([a, dist]);
+  graph[a][b] = dist;
+  graph[b][a] = dist;
 }
 
 const [v1, v2] = input[E + 1].split(" ").map(Number);
 
-// 1 -> v1 -> v2 -> N
-// 1 -> v2 -> v1 -> N
-
 const dijkstra = (start) => {
   // return distance array
   const dist = Array(N + 1).fill(Infinity);
-  const pq = [[0, start]];
+  const visited = Array(N + 1).fill(false);
   dist[start] = 0;
-  while (pq.length > 0) {
-    const [cur_dist, now] = pq.shift();
-    if (dist[now] < cur_dist) continue;
 
-    for (const [next, next_dist] of adjList[now]) {
-      if (next === 0 || next === now) continue;
-      const cost = cur_dist + next_dist;
-      if (cost < dist[next]) {
-        dist[next] = cost;
-        pq.push([cost, next]);
+  for (let i = 1; i <= N; i++) {
+    let min = Infinity;
+    let minIndex = -1;
+
+    for (let j = 1; j <= N; j++) {
+      if (!visited[j] && dist[j] < min) {
+        min = dist[j];
+        minIndex = j;
       }
     }
 
-    pq.sort((a, b) => a[0] - b[0]);
+    if (minIndex === -1) break;
+    visited[minIndex] = true;
+
+    for (let j = 1; j <= N; j++) {
+      if (!visited[j] && graph[minIndex][j] !== Infinity) {
+        dist[j] = Math.min(dist[j], dist[minIndex] + graph[minIndex][j]);
+      }
+    }
   }
 
   return dist;
 };
+
+// 1 -> v1 -> v2 -> N
+// 1 -> v2 -> v1 -> N
 
 const v1_dist = dijkstra(v1);
 const v2_dist = dijkstra(v2);
