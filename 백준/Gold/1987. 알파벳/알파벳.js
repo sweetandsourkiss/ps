@@ -18,9 +18,14 @@ for (let i = 1; i <= R; i++) {
   board.push(chars);
 }
 
+// 유니크 문자 수 계산
+const uniqueChars = new Set(board.flat());
+const totalUnique = uniqueChars.size;
+
 let result = 0;
 
 const dfs = (nowR, nowC, visited, cnt) => {
+  if (result === totalUnique) return;
   const dx = [1, 0, -1, 0];
   const dy = [0, 1, 0, -1];
 
