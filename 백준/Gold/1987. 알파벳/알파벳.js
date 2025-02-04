@@ -18,26 +18,23 @@ for (let i = 1; i <= R; i++) {
   board.push(chars);
 }
 
-const delta = [
-  [-1, 0],
-  [1, 0],
-  [0, 1],
-  [0, -1],
-];
-
 let result = 0;
 
 const dfs = (nowR, nowC, visited, cnt) => {
-  delta.forEach(([r, c]) => {
-    const newR = nowR + r;
-    const newC = nowC + c;
+  const dx = [1, 0, -1, 0];
+  const dy = [0, 1, 0, -1];
+
+  for (let i = 0; i < 4; i++) {
+    const newR = nowR + dx[i];
+    const newC = nowC + dy[i];
     if (newR >= 0 && newR < R && newC >= 0 && newC < C) {
       const charBit = 1 << (board[newR][newC].charCodeAt(0) - CHAR_CODE_OF_A);
       if ((visited & charBit) === 0) {
         dfs(newR, newC, visited | charBit, cnt + 1);
       }
     }
-  });
+  }
+
   result = Math.max(result, cnt);
 };
 
