@@ -11,9 +11,9 @@ const input = fs.readFileSync(filePath).toString().split("\n");
 // Trie Node 정의
 class TrieNode {
   constructor() {
-    this.children = {}; // 자식 노드
-    this.fail = null; // 실패 링크
-    this.output = false; // 패턴 종료 여부
+    this.children = {};
+    this.fail = null;
+    this.end = false;
   }
 }
 
@@ -23,17 +23,15 @@ class AhoCorasick {
     this.root = new TrieNode();
   }
 
-  // 패턴 삽입
-  insert(word) {
+  insert(text) {
     let node = this.root;
-    for (const ch of word) {
+    for (const ch of text) {
       if (!node.children[ch]) node.children[ch] = new TrieNode();
       node = node.children[ch];
     }
-    node.output = true;
+    node.end = true;
   }
 
-  // 실패 링크 구축 (BFS)
   buildFailLinks() {
     const queue = [];
     this.root.fail = this.root;
@@ -41,26 +39,28 @@ class AhoCorasick {
       this.root.children[ch].fail = this.root;
       queue.push(this.root.children[ch]);
     }
+
     while (queue.length) {
       const current = queue.shift();
+
       for (const ch in current.children) {
         let failNode = current.fail;
+
         while (failNode !== this.root && !failNode.children[ch]) {
           failNode = failNode.fail;
         }
+
         if (failNode.children[ch] && failNode.children[ch] !== current.children[ch]) {
           current.children[ch].fail = failNode.children[ch];
         } else {
           current.children[ch].fail = this.root;
         }
-        // 패턴이 끝나는 노드를 따라가서 output 전파
-        current.children[ch].output = current.children[ch].output || current.children[ch].fail.output;
+        current.children[ch].end = current.children[ch].end || current.children[ch].fail.end;
         queue.push(current.children[ch]);
       }
     }
   }
 
-  // 판별 대상 문자열에서 패턴 존재 여부 탐색
   search(text) {
     let node = this.root;
     for (const ch of text) {
@@ -68,7 +68,7 @@ class AhoCorasick {
         node = node.fail;
       }
       if (node.children[ch]) node = node.children[ch];
-      if (node.output) return true; // 패턴 발견
+      if (node.end) return true;
     }
     return false;
   }
@@ -86,7 +86,6 @@ for (let i = 0; i < Q; i++) queries.push(input[idx++]);
 const ac = new AhoCorasick();
 for (const s of S) ac.insert(s);
 ac.buildFailLinks();
-
 // 판별 및 출력
 let result = "";
 for (const query of queries) {
