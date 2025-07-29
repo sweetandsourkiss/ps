@@ -24,7 +24,7 @@ def solution(park, routes):
     }
     for route in routes:
         _dir, _size = route.split(' ')
-        _size = int(_size)
+        _size = int(_size) # 타입 변환
         r, c = delta.get(_dir)
         print(r, c)
         # 끝가지 갈 수 있는지 체크
